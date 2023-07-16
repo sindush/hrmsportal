@@ -1,0 +1,14 @@
+.card-container {
+  height: 15em;
+  align-items: normal;
+  display: grid;
+  align-content: space-between;
+}
+
+::ng-deep .mat-card-header-text {
+  margin: 0px;
+}
+
+.leaves-mat-content{
+  overflow-y: scroll;
+}

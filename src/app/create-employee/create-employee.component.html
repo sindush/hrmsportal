@@ -1,0 +1,375 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2 class="section-title">{{currentAction}} Employee details</h2>
+      <form
+        class="form-container"
+        [formGroup]="userDetailsForm"
+        (ngSubmit)="onSubmitUserDetails(userDetailsForm.value)"
+      >
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            placeholder="First Name"
+            formControlName="first_name"
+            required
+          />
+          <mat-error *ngFor="let validation of validation_messages.first_name">
+            <mat-error
+              class="error-message"
+              *ngIf="
+                userDetailsForm.get('first_name')?.hasError(validation.type) &&
+                (userDetailsForm.get('first_name')?.dirty ||
+                  userDetailsForm.get('first_name')?.touched)
+              "
+              >{{ validation.message }}</mat-error
+            >
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            placeholder="Last Name"
+            formControlName="last_name"
+            required
+          />
+          <mat-error *ngFor="let validation of validation_messages.last_name">
+            <mat-error
+              class="error-message"
+              *ngIf="
+                userDetailsForm.get('last_name')?.hasError(validation.type) &&
+                (userDetailsForm.get('last_name')?.dirty ||
+                  userDetailsForm.get('last_name')?.touched)
+              "
+              >{{ validation.message }}</mat-error
+            >
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <input
+              matInput
+              [matDatepicker]="picker"
+              placeholder="Your birthday"
+              formControlName="dob"
+              required
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngFor="let validation of validation_messages.dob">
+              <mat-error
+                class="error-message"
+                *ngIf="userDetailsForm.get('dob')?.hasError(validation.type) &&
+                  (userDetailsForm.get('dob')?.dirty ||
+                    userDetailsForm.get('dob')?.touched)
+                "
+                >{{ validation.message }}</mat-error
+              >
+            </mat-error>
+          </mat-form-field> 
+
+        <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Email"
+              formControlName="email"
+              required
+            />
+            <mat-error *ngFor="let validation of validation_messages.email">
+              <mat-error
+                class="error-message"
+                *ngIf="
+                  userDetailsForm.get('email')?.hasError(validation.type) &&
+                  (userDetailsForm.get('email')?.dirty ||
+                    userDetailsForm.get('email')?.touched)
+                "
+                >{{ validation.message }}</mat-error
+              >
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Gender"
+              formControlName="gender"
+              required
+            />
+            <mat-error *ngFor="let validation of validation_messages.gender">
+              <mat-error
+                class="error-message"
+                *ngIf="
+                  userDetailsForm.get('gender')?.hasError(validation.type) &&
+                  (userDetailsForm.get('gender')?.dirty ||
+                    userDetailsForm.get('gender')?.touched)
+                "
+                >{{ validation.message }}</mat-error
+              >
+            </mat-error>
+          </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <input matInput placeholder="City" formControlName="city" required />
+          <mat-error *ngFor="let validation of validation_messages.city">
+            <mat-error
+              class="error-message"
+              *ngIf="
+                userDetailsForm.get('city')?.hasError(validation.type) &&
+                (userDetailsForm.get('city')?.dirty ||
+                  userDetailsForm.get('city')?.touched)
+              "
+              >{{ validation.message }}</mat-error
+            >
+          </mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            placeholder="Country"
+            formControlName="county"
+            required
+          />
+          <mat-error *ngFor="let validation of validation_messages.county">
+            <mat-error
+              class="error-message"
+              *ngIf="
+                userDetailsForm.get('county')?.hasError(validation.type) &&
+                (userDetailsForm.get('county')?.dirty ||
+                  userDetailsForm.get('county')?.touched)
+              "
+              >{{ validation.message }}</mat-error
+            >
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            placeholder="Postal Code"
+            formControlName="postal"
+            required
+          />
+          <mat-error *ngFor="let validation of validation_messages.postal">
+            <mat-error
+              class="error-message"
+              *ngIf="
+                userDetailsForm.get('postal')?.hasError(validation.type) &&
+                (userDetailsForm.get('postal')?.dirty ||
+                  userDetailsForm.get('postal')?.touched)
+              "
+              >{{ validation.message }}</mat-error
+            >
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            placeholder="Primary Phone"
+            formControlName="phone1"
+            required
+          />
+          <mat-error *ngFor="let validation of validation_messages.phone1">
+            <mat-error
+              class="error-message"
+              *ngIf="
+                userDetailsForm.get('phone1')?.hasError(validation.type) &&
+                (userDetailsForm.get('phone1')?.dirty ||
+                  userDetailsForm.get('phone1')?.touched)
+              "
+              >{{ validation.message }}</mat-error
+            >
+          </mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            placeholder="Secondary Phone"
+            formControlName="phone2"
+            required
+          />
+          <!-- <mat-error *ngFor="let validation of validation_messages.phone2">
+            <mat-error
+              class="error-message"
+              *ngIf="
+                userDetailsForm.get('phone2')?.hasError(validation.type) &&
+                (userDetailsForm.get('phone2')?.dirty ||
+                  userDetailsForm.get('phone2')?.touched)
+              "
+              >{{ validation.message }}</mat-error
+            >
+          </mat-error> -->
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            placeholder="Web Link"
+            formControlName="web"
+            required
+          />
+          <!-- <mat-error *ngFor="let validation of validation_messages.web">
+            <mat-error
+              class="error-message"
+              *ngIf="
+                userDetailsForm.get('web')?.hasError(validation.type) &&
+                (userDetailsForm.get('web')?.dirty ||
+                  userDetailsForm.get('web')?.touched)
+              "
+              >{{ validation.message }}</mat-error
+            >
+          </mat-error> -->
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            placeholder="Working Location"
+            formControlName="workingfrom"
+            required
+          />
+          <!-- <mat-error *ngFor="let validation of validation_messages.workingfrom">
+            <mat-error
+              class="error-message"
+              *ngIf="
+                userDetailsForm.get('workingfrom')?.hasError(validation.type) &&
+                (userDetailsForm.get('workingfrom')?.dirty ||
+                  userDetailsForm.get('workingfrom')?.touched)
+              "
+              >{{ validation.message }}</mat-error
+            >
+          </mat-error> -->
+        </mat-form-field>
+
+        <!-- -->
+
+        <!-- <mat-form-field class="full-width">
+          <mat-select placeholder="Gender">
+            <mat-option *ngFor="let gender of genders" [value]="gender">
+              {{ gender }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngFor="let validation of validation_messages.gender">
+            <mat-error
+              class="error-message"
+              *ngIf="
+                userDetailsForm.get('gender')?.hasError(validation.type) &&
+                (userDetailsForm.get('gender')?.dirty ||
+                  userDetailsForm.get('gender')?.touched)
+              "
+              >{{ validation.message }}</mat-error
+            >
+          </mat-error>
+        </mat-form-field> -->
+
+        <!-- <div formGroupName="country_phone" class="row">
+          <mat-form-field class="full-width col-4">
+            <mat-select formControlName="country" placeholder="Country">
+              <mat-option *ngFor="let country of countries" [value]="country">
+                {{ country.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="full-width col-8">
+            <input
+              matInput
+              placeholder="Phone"
+              type="tel"
+              formControlName="phone"
+              required
+            />
+            <mat-hint align="start"
+              ><strong>Mobile:</strong>
+              {{
+                userDetailsForm.value.country_phone.country.sampleMobilePhone
+              }}</mat-hint
+            >
+            <mat-hint align="end"
+              ><strong>Fixed:</strong>
+              {{
+                userDetailsForm.value.country_phone.country.sampleFixedPhone
+              }}</mat-hint
+            >
+            <mat-error *ngFor="let validation of validation_messages.phone">
+              <mat-error
+                class="error-message"
+                class="error-message"
+                *ngIf="
+                  userDetailsForm
+                    .get('country_phone')
+                    .get('phone')
+                    .hasError(validation.type) &&
+                  (userDetailsForm.get('country_phone')?.get('phone').dirty ||
+                    userDetailsForm.get('country_phone')?.get('phone').touched)
+                "
+              >
+              
+                {{ validation.message }}
+              </mat-error>
+            </mat-error>
+          </mat-form-field>
+        </div> -->
+
+        <mat-form-field class="full-width">
+          <textarea
+            matInput
+            maxlength="256"
+            placeholder="address"
+            formControlName="address"
+            matTextareaAutosize
+            matAutosizeMinRows="2"
+            matAutosizeMaxRows="5"
+          ></textarea>
+          <mat-hint align="start">Full Address</mat-hint>
+          <mat-hint align="end"
+            >{{ userDetailsForm.get("address")?.value?.length }} / 256</mat-hint
+          >
+          <mat-error *ngFor="let validation of validation_messages.address">
+            <mat-error
+              class="error-message"
+              *ngIf="
+                userDetailsForm.get('address')?.hasError(validation.type) &&
+                (userDetailsForm.get('address')?.dirty ||
+                  userDetailsForm.get('address')?.touched)
+              "
+              >{{ validation.message }}</mat-error
+            >
+          </mat-error>
+        </mat-form-field>
+
+        <div class="d-flex col-12 align-items-center justify-content-center" >
+            <div class="col-6 d-flex align-items-center justify-content-center">
+                <button
+                class="submit-btn"
+                color="warn"
+                mat-raised-button
+                type="button"
+                (click)="closeDialog()"
+              >
+                Cancel
+              </button>
+            </div>
+            <div class="col-6 d-flex align-items-center justify-content-center">
+                <button
+                class="submit-btn"
+                color="primary"
+                mat-raised-button
+                type="submit"
+                [disabled]="!userDetailsForm.valid"
+              >
+                Submit
+              </button>
+            </div>
+        </div>
+       
+      </form>
+    </div>
+  </div>
+</div>
