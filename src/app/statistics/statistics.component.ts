@@ -44,10 +44,4 @@ export class StatisticsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
     });
   }
-
-  navigate() {
-    debugger;
-    // console.log(`${environment.URL}${urlDetails.route}`)
-    this.router.navigate(['http://localhost:4200/create']);
-  }
 }

@@ -1,20 +1,20 @@
 {
   "employeeList": [
     {
-      "id": "2",
-      "first_name": "Evan",
+      "first_name": "Evan1",
       "last_name": "Zigomalas",
-      "dob": "1/1/02",
-      "gender": "Male",
+      "gender": "male",
+      "dob": "2023-07-06T18:30:00.000Z",
       "address": "5 Binney St",
       "city": "Abbey Ward",
       "county": "Buckinghamshire",
       "postal": "HP11 2AX",
-      "phone1": "01937-864715",
-      "phone2": "01714-737668",
+      "phone1": "09745263112",
+      "phone2": "1232131233",
       "email": "evan.zigomalas@gmail.com",
+      "web": "http://www.capgeminiamerica.co.uk",
       "workingfrom": "home",
-      "web": "http://www.capgeminiamerica.co.uk"
+      "id": "2"
     },
     {
       "id": "3",

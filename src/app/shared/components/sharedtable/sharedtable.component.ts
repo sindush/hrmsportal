@@ -21,6 +21,7 @@ import { UtilityService } from '../../services/utility/utility.service';
 import { MatSort } from '@angular/material/sort';
 import { SnackbarService } from '../../services/snackbar/snackbar.service';
 import { Router } from '@angular/router';
+import { SpinnerService } from '../../services/spinner/spinner.service';
 // import {MAT_DIALOG_DATA} from '@angular/material';
 
 export interface PeriodicElement {
@@ -61,11 +62,17 @@ export class SharedtableComponent implements OnInit, OnChanges, AfterViewInit {
     private apiService: ApiService,
     private utilityService: UtilityService,
     private snackBarService: SnackbarService,
-    private router:Router
+    private router:Router,
+    public spinnerService:SpinnerService
   ) {}
 
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
+    if(this.tableSourceData){
+      this.resultsLength = this.tableSourceData.length;
+      this.dataSource = new MatTableDataSource(this.tableSourceData);
+    }
+    
     this.utilityService.getDialogStatus.subscribe((val) => {
       if (val) {
         this.closeDialog();
@@ -112,25 +119,27 @@ export class SharedtableComponent implements OnInit, OnChanges, AfterViewInit {
     reader.readAsArrayBuffer(file);
   }
   createEmployee(employeeDetails: employeeDetails[]) {
-    debugger;
-
+    this.spinnerService.setLoading(true);
     employeeDetails.forEach((eachEmployee, i) => {
       this.apiService.createEmployeeDetails(eachEmployee).subscribe(
         (response: any) => {
+          this.spinnerService.setLoading(false);
           if (response.status === 201 && i === employeeDetails.length - 1) {
             this.callGetCustomerDetails();
           }
         },
         (err) => {
+          this.spinnerService.setLoading(false);
           this.snackBarService.error(err.statusText);
-          // console.log(err);
         }
       );
     });
   }
   callGetCustomerDetails() {
+    this.spinnerService.setLoading(true);
     this.apiService.getEmployeeData().subscribe((details) => {
-      debugger;
+      
+      this.spinnerService.setLoading(false);
       this.dataSource = new MatTableDataSource(details);
       this.sortGrid(details, 'id');
       this.utilityService.setEmployeeData.next(details);
@@ -181,7 +190,6 @@ export class SharedtableComponent implements OnInit, OnChanges, AfterViewInit {
     this.dataSource.sortingDataAccessor = (item: any, property: any) => {
       switch (property) {
         case 'id':
-          console.log(item.id)
           return new Date(item.id);
         default:
           return item[property];

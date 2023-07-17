@@ -33,7 +33,6 @@
     </span>
     <span *ngIf="!item.children || item.children.length === 0">
       <mat-list-item (click)="navigate(item)">
-        <!-- Entradas principales routerLink="[item.route]"  -->
         <div fxLayout="row" fxLayoutAlign="space-between center">
           <mat-icon>{{ item.iconName }}</mat-icon>
           {{ item.displayName }}

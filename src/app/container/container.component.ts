@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { UtilityService } from '../shared/services/utility/utility.service';
 import { leaves } from '../shared/interface/leaves';
 import { TableColumn } from '../shared/interface/column';
+import { Router } from '@angular/router';
+import { SpinnerService } from '../shared/services/spinner/spinner.service';
 
 @Component({
   selector: 'app-container',
@@ -22,7 +24,9 @@ export class ContainerComponent implements OnInit {
   constructor(
     media: MediaMatcher,
     private apiService: ApiService,
-    private utilityService: UtilityService
+    private utilityService: UtilityService,
+    private router:Router,
+    private spinnerService:SpinnerService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
   }
@@ -40,12 +44,15 @@ export class ContainerComponent implements OnInit {
   }
 
   getEmployeeDetails() {
+    
     this.employeeProfile$ = this.apiService.getEmployeeProfile();
     this.employeeLeaves$ = this.apiService.getEmployeeLeaves();
   }
   getEmployeeSList() {
+    this.spinnerService.setLoading(true);
     this.apiService.getEmployeeData().subscribe((data: employeeDetails[]) => {
       this.employeedData = data;
+      this.spinnerService.setLoading(false);
       this.utilityService.setEmployeeData.next(data);
       this.columns = Object.keys(this.employeedData[0]).map((val) => {
         return {
@@ -55,5 +62,7 @@ export class ContainerComponent implements OnInit {
       });
     });
   }
-
+  navigate(url: string) {
+    this.router.navigate([url]);
+  }
 }

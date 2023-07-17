@@ -6,6 +6,7 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { ContainerComponent } from './container/container.component';
 
 const routes: Routes = [
+  
   // {
   //   path: '',
   //   component: ContainerComponent,

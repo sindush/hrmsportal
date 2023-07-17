@@ -1,3 +1,7 @@
+
 <div class="container">
   <app-container></app-container>
+  <div class="loading-spinner" *ngIf="this.spinnerService.getLoading()">
+    <mat-spinner></mat-spinner>
+  </div>
 </div>
