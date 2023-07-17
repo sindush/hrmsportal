@@ -41,11 +41,16 @@ export class CreateEmployeeComponent implements OnInit {
     city: [{ type: 'required', message: 'City is required' }],
     county: [{ type: 'required', message: 'Country is required' }],
     postal: [{ type: 'required', message: 'Postal code is required' }],
-    phone1: [{ type: 'required', message: 'Primary phone number is required' }],
-    email: [{ type: 'required', message: 'Email is required' }],
+    phone1: [{ type: 'required', message: 'Primary phone number is required' },{ type: 'pattern', message: 'Enter valid phone number' }],
+    phone2: [{ type: 'pattern', message: 'Enter valid phone number' }],
+    email: [{ type: 'required', message: 'Email is required' },{ type: 'pattern', message: 'Enter valid email' }],
     gender: [{ type: 'required', message: 'Gender is required' }],
     dob: [{ type: 'required', message: 'DOB is required' }],
   };
+  gender = [
+    {label:'Male',value:'male'},
+    {label:'Female',value:'female'}
+  ]
   currentAction: string;
   currentUsetId: any;
   constructor(
@@ -59,19 +64,17 @@ export class CreateEmployeeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    debugger;
+    
     this.createForms();
     if (
       this.employeeData.dataKey &&
       Object.keys(this.employeeData.dataKey).length
     ) {
       this.currentAction = this.employeeData.action;
-      console.log('this.currentAction', this.currentAction);
       this.setFormValues(this.employeeData.dataKey);
       this.currentUsetId = this.employeeData.dataKey.id;
     } else {
       this.currentAction = this.CREATE;
-      console.log('this.currentAction', this.currentAction);
     }
   }
 
@@ -97,9 +100,9 @@ export class CreateEmployeeComponent implements OnInit {
       city: new FormControl('', Validators.required),
       county: new FormControl('', Validators.required),
       postal: new FormControl('', Validators.required),
-      phone1: new FormControl('', Validators.required),
-      phone2: new FormControl(''),
-      email: new FormControl('', Validators.required),
+      phone1: new FormControl('', [Validators.required,Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
+      phone2: new FormControl('', [Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
+      email: new FormControl('',[ Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       web: new FormControl(''),
       workingfrom: new FormControl(''),
     });
@@ -124,8 +127,6 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   onSubmitUserDetails(employeeDetails: employeeDetails) {
-    debugger;
-    console.log(employeeDetails);
     let randomId = Math.floor(Math.random() * 500) + 500;
     if (this.currentAction === this.UPDATE) {
       this.updateEmployeeDetails({
@@ -145,12 +146,10 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   updateEmployeeDetails(employeeDetails: employeeDetails) {
-    debugger;
+    
     this.apiService
       .updateEmployeeDetails(employeeDetails)
       .subscribe((response) => {
-        debugger;
-        console.log(response);
         if (response.status === 200) {
           this.callGetCustomerDetails();
         }
@@ -161,8 +160,6 @@ export class CreateEmployeeComponent implements OnInit {
     this.apiService
       .createEmployeeDetails(employeeDetails)
       .subscribe((response: any) => {
-        debugger;
-        console.log(response);
         if (response.status === 201) {
           this.callGetCustomerDetails();
         }

@@ -5,7 +5,6 @@
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <!-- Cabeceras del submenu -->
               <div fxLayout="row" fxLayoutAlign="space-between center">
                 <mat-icon>{{ item.iconName }}</mat-icon>
                 {{ item.displayName }}
@@ -14,7 +13,6 @@
           </mat-expansion-panel-header>
           <span *ngFor="let child of item.children">
             <mat-list-item routerLink="[child.route]">
-              <!-- Entradas de cada submenú  -->
               <div
                 fxLayout="row"
                 fxLayoutAlign="space-between center"
@@ -34,8 +32,8 @@
       </mat-accordion>
     </span>
     <span *ngIf="!item.children || item.children.length === 0">
-      <mat-list-item routerLink="[item.route]">
-        <!-- Entradas principales -->
+      <mat-list-item (click)="navigate(item)">
+        <!-- Entradas principales routerLink="[item.route]"  -->
         <div fxLayout="row" fxLayoutAlign="space-between center">
           <mat-icon>{{ item.iconName }}</mat-icon>
           {{ item.displayName }}

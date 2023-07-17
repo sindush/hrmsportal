@@ -10,11 +10,14 @@ import { LeavesComponent } from './leaves/leaves.component';
 import { SharedMaterialModule } from './shared/sharedmodules/sharedmaterial.module';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { ApiService } from './shared/services/apiendpoint/api.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ContainerComponent } from './container/container.component';
 import { UtilityService } from './shared/services/utility/utility.service';
 import { CreateEmployeeComponent } from './create-employee/create-employee.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { GlobalInterceptor } from './global.interceptor';
+import { SnackbarService } from './shared/services/snackbar/snackbar.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,11 +35,21 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SharedMaterialModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
-    
+    ReactiveFormsModule,
   ],
-  providers: [ApiService,UtilityService],
+  providers: [
+    ApiService,
+    UtilityService,
+    SnackbarService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: GlobalInterceptor,
+      multi: true,
+    },
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+    { provide: MatDialogRef, useValue: {} } 
+  ],
   bootstrap: [AppComponent],
-  exports:[]
+  exports: [],
 })
-export class AppModule { }
+export class AppModule {}

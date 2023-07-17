@@ -45,7 +45,6 @@ export class ContainerComponent implements OnInit {
   }
   getEmployeeSList() {
     this.apiService.getEmployeeData().subscribe((data: employeeDetails[]) => {
-      console.log('data', data);
       this.employeedData = data;
       this.utilityService.setEmployeeData.next(data);
       this.columns = Object.keys(this.employeedData[0]).map((val) => {

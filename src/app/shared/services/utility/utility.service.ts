@@ -33,15 +33,4 @@ export class UtilityService {
     return frags.join(' ');
   }
 
-  // createEmployee(employeeDetails: employeeDetails) {
-  //   this.apiService
-  //     .createEmployeeDetails(employeeDetails)
-  //     .subscribe((response: any) => {
-  //       debugger;
-  //       console.log(response);
-  //       if (response.status === 201) {
-  //         this.callGetCustomerDetails();
-  //       }
-  //     });
-  // }
 }

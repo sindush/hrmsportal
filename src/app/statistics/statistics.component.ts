@@ -6,6 +6,7 @@ import { TableColumn } from '../shared/interface/column';
 import { UtilityService } from '../shared/services/utility/utility.service';
 import { CreateEmployeeComponent } from '../create-employee/create-employee.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-statistics',
@@ -20,12 +21,12 @@ export class StatisticsComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private utilityService: UtilityService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router:Router
   ) {}
 
   ngOnInit(): void {
     this.utilityService.getEmployeesData.subscribe((employeeData) => {
-      console.log('StatisticsComponent',employeeData)
       this.employeedData = employeeData;
     });
   }
@@ -41,7 +42,12 @@ export class StatisticsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
     });
+  }
+
+  navigate() {
+    debugger;
+    // console.log(`${environment.URL}${urlDetails.route}`)
+    this.router.navigate(['http://localhost:4200/create']);
   }
 }
