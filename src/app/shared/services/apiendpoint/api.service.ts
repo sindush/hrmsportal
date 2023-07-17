@@ -27,11 +27,11 @@ export class ApiService {
   }
 
   updateEmployeeDetails(employeeDetails:employeeDetails){
-    debugger
+    
     return this.http.put(`http://localhost:3000/employeeList/${employeeDetails.id}`,employeeDetails, {observe: 'response'})
   }
   createEmployeeDetails(employeeDetails:employeeDetails){
-    debugger
+    
     return this.http.post(`http://localhost:3000/employeeList`,employeeDetails, {observe: 'response'})
   }
 }

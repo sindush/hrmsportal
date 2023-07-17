@@ -1,6 +1,6 @@
 <div class="contianer col-12 d-flex">
   <div class="col-4">
-    <mat-card class="card-container m-4  box-shadow ">
+    <mat-card class="card-container m-4 box-shadow">
       <mat-card-header>
         <mat-card-title-group class="gradient-border only-bottom">
           <mat-card-title class="fs-6 fw-bold">Leaves</mat-card-title>
@@ -11,19 +11,24 @@
         <div class="col-12 d-flex">
           <div class="col-4">
             <div class="col-12 fs-1 mb-4 fw-bold">
-              <span>{{leavesData.totlaLeavesApplied}} </span></div>
+              <span>{{ leavesData.totlaLeavesApplied }} </span>
+            </div>
             <div class="col-12">
               <p class="fs-5 fw-light">Applied</p>
             </div>
           </div>
           <div class="col-4">
-            <div class="col-12 fs-1 mb-4 fw-bold">{{leavesData.approvedLeaves}}</div>
+            <div class="col-12 fs-1 mb-4 fw-bold">
+              {{ leavesData.approvedLeaves }}
+            </div>
             <div class="col-12">
               <p class="fs-5 fw-light">Approved</p>
             </div>
           </div>
           <div class="col-4">
-            <div class="col-12 fs-1 mb-4 fw-bold">{{leavesData.pendingApprovalLeaves}}</div>
+            <div class="col-12 fs-1 mb-4 fw-bold">
+              {{ leavesData.pendingApprovalLeaves }}
+            </div>
             <div class="col-12">
               <p class="fs-5 fw-light">Pending</p>
             </div>
@@ -34,7 +39,7 @@
   </div>
 
   <div class="col-4">
-    <mat-card class="card-container m-4  box-shadow ">
+    <mat-card class="card-container m-4 box-shadow">
       <mat-card-header>
         <mat-card-title-group class="gradient-border only-bottom mb-2">
           <mat-card-title>Status</mat-card-title>
@@ -45,18 +50,18 @@
         <div class="col-12 d-grid">
           <div class="col-12">
             <mat-card-title-group>
-              <mat-card-title class="fs-6 fw-bold"
-                >Awaiting Approval</mat-card-title
-              >
-              <mat-card-subtitle class="fs-6">4 Requests</mat-card-subtitle>
+              <mat-card-title class="fs-6">Working From Home</mat-card-title>
+              <mat-card-subtitle class="fs-6 fw-bold">{{
+                workFromHome?.length
+              }}</mat-card-subtitle>
             </mat-card-title-group>
           </div>
           <div class="col-12">
             <mat-card-title-group>
-              <mat-card-title class="fs-6 fw-bold"
-                >Pending Action</mat-card-title
-              >
-              <mat-card-subtitle class="fs-6">31 Requests</mat-card-subtitle>
+              <mat-card-title class="fs-6">Work From Office</mat-card-title>
+              <mat-card-subtitle class="fs-6 fw-bold">{{
+                workFromOffice?.length
+              }}</mat-card-subtitle>
             </mat-card-title-group>
           </div>
         </div>
@@ -65,7 +70,7 @@
   </div>
 
   <div class="col-4">
-    <mat-card class="card-container m-4  box-shadow ">
+    <mat-card class="card-container m-4 box-shadow">
       <mat-card-header>
         <mat-card-title-group class="gradient-border only-bottom">
           <mat-card-title>Employee On Leave</mat-card-title>
@@ -75,55 +80,28 @@
 
       <mat-card-content class="leaves-mat-content">
         <div class="col-12 d-grid p-2">
-          <ng-container *ngFor="let eachEmployee of leavesData?.employeeOnLeave">
+          <ng-container
+            *ngFor="let eachEmployee of leavesData?.employeeOnLeave"
+          >
             <div class="col-12 d-flex container-content">
-            <div class="col-4">
-              <mat-card-title-group>
-                <mat-card-title class="fs-6 fw-bold"> {{eachEmployee.first_name}}</mat-card-title>
-               
-              </mat-card-title-group>
+              <div class="col-4">
+                <mat-card-title-group>
+                  <mat-card-title class="fs-6 fw-bold">
+                    {{ eachEmployee.first_name }}</mat-card-title
+                  >
+                </mat-card-title-group>
+              </div>
+              <div class="col-8">
+                <mat-card-subtitle class="fs-6">
+                  <span class="fw-bold">{{ eachEmployee.startDate }} </span>
+                  to
+                  <span class="fw-bold">{{
+                    eachEmployee.endDate
+                  }}</span></mat-card-subtitle
+                >
+              </div>
             </div>
-            <div class="col-8">
-              <mat-card-subtitle class="fs-6"> 
-                <span class="fw-bold">{{eachEmployee.startDate}} </span>
-                to  
-                <span class="fw-bold">{{eachEmployee.endDate}}</span></mat-card-subtitle>
-            </div>
-<!--            
-            <div class="col-4">
-              <mat-card-subtitle class="fs-6"> {{eachEmployee.endDate}}</mat-card-subtitle>
-            </div> -->
-          </div>
-           
           </ng-container>
-          <!-- <div class="col-12 d-flex container-content">
-            <div class="col-4">
-              <mat-card-title-group>
-                <mat-card-title class="fs-6 fw-bold">Mix Hours</mat-card-title>
-                <mat-card-subtitle class="fs-6">Today</mat-card-subtitle>
-              </mat-card-title-group>
-            </div>
-            <div class="col-8">
-              <mat-progress-bar
-                mode="determinate"
-                value="40"
-              ></mat-progress-bar>
-            </div>
-          </div>
-          <div class="col-12 d-flex container-content">
-            <div class="col-4">
-              <mat-card-title-group>
-                <mat-card-title class="fs-6 fw-bold">Mix Hours</mat-card-title>
-                <mat-card-subtitle class="fs-6">This Week</mat-card-subtitle>
-              </mat-card-title-group>
-            </div>
-            <div class="col-8">
-              <mat-progress-bar
-                mode="determinate"
-                value="60"
-              ></mat-progress-bar>
-            </div>
-          </div> -->
         </div>
       </mat-card-content>
     </mat-card>
