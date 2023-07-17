@@ -11,7 +11,6 @@
         <div class="d-flex col-6 align-items-center justify-content-end">
           <mat-card class="centres-card image-card">
             <mat-card-header fxLayout fxLayoutAlign="start center">
-              <div mat-card-avatar class="example-header-image image"></div>
               <mat-card-title class="card-title-style mb-0" >
               <span *ngIf="employeeProfile$ | async as employee">{{employee.first_name }} {{employee.last_name}}</span>  
               </mat-card-title>
