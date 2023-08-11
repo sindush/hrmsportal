@@ -11,7 +11,7 @@ import { UtilityService } from '../shared/services/utility/utility.service';
 export class LeavesComponent implements OnInit {
   leavesData$: Subscription;
   leavesData: leaves;
-  workFromHome: string;
+  workFromHome: string | null;
   workFromOffice: string;
   constructor(private utilityService: UtilityService) {}
 

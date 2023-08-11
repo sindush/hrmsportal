@@ -41,18 +41,25 @@ export class CreateEmployeeComponent implements OnInit {
     city: [{ type: 'required', message: 'City is required' }],
     county: [{ type: 'required', message: 'Country is required' }],
     postal: [{ type: 'required', message: 'Postal code is required' }],
-    phone1: [{ type: 'required', message: 'Primary phone number is required' },{ type: 'pattern', message: 'Enter valid phone number' }],
+    phone1: [
+      { type: 'required', message: 'Primary phone number is required' },
+      { type: 'pattern', message: 'Enter valid phone number' },
+    ],
     phone2: [{ type: 'pattern', message: 'Enter valid phone number' }],
-    email: [{ type: 'required', message: 'Email is required' },{ type: 'pattern', message: 'Enter valid email' }],
+    email: [
+      { type: 'required', message: 'Email is required' },
+      { type: 'pattern', message: 'Enter valid email' },
+    ],
     gender: [{ type: 'required', message: 'Gender is required' }],
     dob: [{ type: 'required', message: 'DOB is required' }],
   };
   gender = [
-    {label:'Male',value:'male'},
-    {label:'Female',value:'female'}
-  ]
+    { label: 'Male', value: 'male' },
+    { label: 'Female', value: 'female' },
+  ];
   currentAction: string;
   currentUsetId: any;
+  isValidNumber: boolean;
   constructor(
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public employeeData: any,
@@ -64,7 +71,6 @@ export class CreateEmployeeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    
     this.createForms();
     if (
       this.employeeData.dataKey &&
@@ -79,7 +85,7 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   createForms() {
-    let country = new FormControl('', Validators.required);
+    let country = new FormControl('',);
     let phone = new FormControl('', {
       validators: Validators.compose([Validators.required]),
     });
@@ -88,21 +94,45 @@ export class CreateEmployeeComponent implements OnInit {
       phone: phone,
     });
     // user details form validations
+    // this.userDetailsForm = this.fb.group({
+    //   first_name: new FormControl('',),
+    //   last_name: new FormControl('',),
+    //   gender: new FormControl('', [Validators.required]),
+    //   dob: new FormControl('', [Validators.required]),
+    //   address: new FormControl('', [
+    //    ,
+    //     Validators.maxLength(256),
+    //   ]),
+    //   city: new FormControl('',),
+    //   county: new FormControl('',),
+    //   postal: new FormControl('',),
+    //   phone1: new FormControl('', [
+    //    ,
+    //     Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
+    //   ]),
+    //   phone2: new FormControl('', [
+    //     Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
+    //   ]),
+    //   email: new FormControl('', [
+    //    ,
+    //     Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+    //   ]),
+    //   web: new FormControl(''),
+    //   workingfrom: new FormControl('')
+    // });
+
     this.userDetailsForm = this.fb.group({
-      first_name: new FormControl('', Validators.required),
-      last_name: new FormControl('', Validators.required),
-      gender: new FormControl('', [Validators.required]),
-      dob: new FormControl('', [Validators.required]),
-      address: new FormControl('', [
-        Validators.required,
-        Validators.maxLength(256),
-      ]),
-      city: new FormControl('', Validators.required),
-      county: new FormControl('', Validators.required),
-      postal: new FormControl('', Validators.required),
-      phone1: new FormControl('', [Validators.required,Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
-      phone2: new FormControl('', [Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
-      email: new FormControl('',[ Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      first_name: new FormControl('',),
+      last_name: new FormControl('',),
+      gender: new FormControl(''),
+      dob: new FormControl(''),
+      address: new FormControl(''),
+      city: new FormControl('',),
+      county: new FormControl('',),
+      postal: new FormControl('',),
+      phone1: new FormControl(''),
+      phone2: new FormControl(''),
+      email: new FormControl(''),
       web: new FormControl(''),
       workingfrom: new FormControl(''),
     });
@@ -146,7 +176,6 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   updateEmployeeDetails(employeeDetails: employeeDetails) {
-    
     this.apiService
       .updateEmployeeDetails(employeeDetails)
       .subscribe((response) => {
@@ -160,7 +189,8 @@ export class CreateEmployeeComponent implements OnInit {
     this.apiService
       .createEmployeeDetails(employeeDetails)
       .subscribe((response: any) => {
-        if (response.status === 201) {
+        debugger
+        if (response.status === 200) {
           this.callGetCustomerDetails();
         }
       });
@@ -171,5 +201,37 @@ export class CreateEmployeeComponent implements OnInit {
       this.utilityService.setEmployeeData.next(details);
       this.closeDialog();
     });
+  }
+
+  validateNumber(value: number) {
+    // Check if the input value is within the range 0 to 3
+    this.isValidNumber = value >= 0 && value <= 3;
+  }
+  onKeyDown(event: KeyboardEvent) {
+    debugger;
+    if (['0', '1', '2', '3'].includes(event.key)) {
+      this.isValidNumber = true;
+    } else {
+      event.preventDefault();
+      this.isValidNumber = false;
+    }
+    // Allow certain key codes: digits 0 to 3, arrow keys, backspace, delete, and tab
+    // if (
+    //   (event.keyCode >= 48 && event.keyCode <= 51) || // Digits 0 to 3
+    //   (event.keyCode >= 96 && event.keyCode <= 99) || // Numpad digits 0 to 3
+    //   event.keyCode === 37 || // Arrow left
+    //   event.keyCode === 39 || // Arrow right
+    //   event.keyCode === 8 || // Backspace
+    //   event.keyCode === 46 || // Delete
+    //   event.keyCode === 9 // Tab
+    // ) {
+    //   // Allow the key press
+    //   debugger
+
+    // } else {
+    //   debugger
+    //   // Prevent the key press and display an error message
+
+    // }
   }
 }

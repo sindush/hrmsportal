@@ -172,6 +172,7 @@ export class SharedtableComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   deleteEmployee(employee: employeeDetails) {
+    debugger
     this.apiService.deleteEmployeeById(employee.id).subscribe((value) => {
       if (value.status === 200) {
         this.apiService.getEmployeeData().subscribe(
@@ -184,6 +185,10 @@ export class SharedtableComponent implements OnInit, OnChanges, AfterViewInit {
         );
       }
     });
+  }
+
+  viewEmployee(employee: employeeDetails){
+   this.router.navigate(['view'], { queryParams: { id: employee.id } })
   }
 
   sortGrid(item: any, property: any) {

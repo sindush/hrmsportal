@@ -1,0 +1,20 @@
+<div class="row d-flex align-items-center justify-content-center col-12 mt-5">
+    <mat-card class="example-card">
+        <mat-card-header>
+            <mat-card-title>{{userDetails?.first_name}}{{userDetails?.last_name}}</mat-card-title>
+            <mat-card-subtitle>{{userDetails?.gender}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <p>{{userDetails?.address}}</p>
+            <p>{{userDetails?.email}}</p>
+        </mat-card-content>
+
+    </mat-card>
+
+    <mat-card-actions class="row d-flex align-items-center justify-content-center col-12 mt-2">
+        <button class="submit-btn col-3" type="button" mat-raised-button color="primary"
+            (click)="navigateBack()">Back</button>
+        <!-- <button mat-button>SHARE</button> -->
+    </mat-card-actions>
+
+</div>

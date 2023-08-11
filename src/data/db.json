@@ -47,38 +47,6 @@
       "web": "asdasdsad",
       "workingfrom": "home",
       "id": 52452
-    },
-    {
-      "first_name": "Vijaya",
-      "last_name": "kumari",
-      "gender": "female",
-      "dob": "1992-06-24T18:30:00.000Z",
-      "address": "16 Taylor St",
-      "city": "Vijayawada",
-      "county": "India",
-      "postal": "520004",
-      "phone1": "1234567890",
-      "phone2": "01944-369969",
-      "email": "123123@hotmail.com",
-      "web": "asdasdsad",
-      "workingfrom": "home",
-      "id": 12451
-    },
-    {
-      "first_name": "manju",
-      "last_name": "velagaleti",
-      "gender": "female",
-      "dob": "1992-06-24T18:30:00.000Z",
-      "address": "15 Taylor St",
-      "city": "Vijayawada",
-      "county": "India",
-      "postal": "520004",
-      "phone1": "1234567890",
-      "phone2": "01944-369968",
-      "email": "123123@hotmail.com",
-      "web": "asdasdsad",
-      "workingfrom": "home",
-      "id": 1235
     }
   ],
   "profile": {

@@ -1,5 +1,5 @@
 import { employeeDetails } from './../../interface/employeeDetails';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { leaves } from '../../interface/leaves';
@@ -10,9 +10,17 @@ import { leaves } from '../../interface/leaves';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
+  createEmployeeDetails(employeeDetails: employeeDetails) {
+    return this.http.post(
+      `https://hrmsportal-67715-default-rtdb.firebaseio.com/posts.json`,
+      employeeDetails,
+      { observe: 'response' }
+    );
+  }
+
   getEmployeeData(): Observable<employeeDetails[]> {
     return this.http.get<employeeDetails[]>(
-      'http://localhost:3000/employeeList'
+      'https://hrmsportal-67715-default-rtdb.firebaseio.com/posts.json'
     );
   }
   getEmployeeProfile(): Observable<employeeDetails> {
@@ -23,15 +31,29 @@ export class ApiService {
   }
 
   deleteEmployeeById(id: string) {
-    return this.http.delete(`http://localhost:3000/employeeList/${id}`, {observe: 'response'});
+    debugger;
+    return this.http.delete(
+      `https://hrmsportal-67715-default-rtdb.firebaseio.com/posts/${id}.json`,
+      {
+        observe: 'response',
+      }
+    );
   }
 
-  updateEmployeeDetails(employeeDetails:employeeDetails){
-    
-    return this.http.put(`http://localhost:3000/employeeList/${employeeDetails.id}`,employeeDetails, {observe: 'response'})
+  updateEmployeeDetails(employeeDetails: employeeDetails) {
+    return this.http.put(
+      `https://hrmsportal-67715-default-rtdb.firebaseio.com/posts/${employeeDetails.id}.json`,
+      employeeDetails,
+      { observe: 'response' }
+    );
   }
-  createEmployeeDetails(employeeDetails:employeeDetails){
-    
-    return this.http.post(`http://localhost:3000/employeeList`,employeeDetails, {observe: 'response'})
+
+  getEmployeeDetailsById(
+    id: string
+  ): Observable<HttpResponse<employeeDetails>> {
+    return this.http.get<employeeDetails>(
+      `https://hrmsportal-67715-default-rtdb.firebaseio.com/posts/${id}.json`,
+      { observe: 'response' }
+    );
   }
 }

@@ -18,6 +18,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GlobalInterceptor } from './global.interceptor';
 import { SnackbarService } from './shared/services/snackbar/snackbar.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { StoreModule } from '@ngrx/store';
+import { ViewEmployeeComponent } from './view-employee/view-employee.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +28,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
     StatisticsComponent,
     ContainerComponent,
     CreateEmployeeComponent,
+    ViewEmployeeComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +39,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    StoreModule.forRoot({}, {}),
   ],
   providers: [
     ApiService,
