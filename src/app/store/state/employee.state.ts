@@ -1,9 +1,8 @@
+import { EntityState, createEntityAdapter } from '@ngrx/entity';
 import { employeeDetails } from './../../shared/interface/employeeDetails';
 
-export interface EmployeeState {
-  employeeDetails: employeeDetails[];
-}
+export interface EmployeeState extends EntityState<employeeDetails>{}
 
-export const employeeDetailsInitialState: EmployeeState = {
-  employeeDetails: [],
-};
+export const employeeAdaptor = createEntityAdapter<employeeDetails>();
+
+export const employeeDetailsInitialState: EmployeeState =  employeeAdaptor.getInitialState();

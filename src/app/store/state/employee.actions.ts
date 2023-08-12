@@ -1,3 +1,4 @@
+import { Update } from '@ngrx/entity';
 import { employeeDetails } from './../../shared/interface/employeeDetails';
 import { createAction, props } from '@ngrx/store';
 
@@ -46,7 +47,7 @@ export const updateEmployee = createAction(
 );
 export const updateEmployeeSuccess = createAction(
   UPDATE_EMPLOYEE_SUCCESS,
-  props<{ employeDetails: employeeDetails }>()
+  props<{ employeDetails: Update<employeeDetails> }>()
 );
 
 export const deleteEmployee = createAction(
@@ -56,5 +57,5 @@ export const deleteEmployee = createAction(
 
 export const deleteEmployeeSuccess = createAction(
   DELETE_EMPLOYEE_DETAILS_SUCCESS,
-  props<{ employeDetails: employeeDetails }>()
+  props<{ id:string }>()
 );

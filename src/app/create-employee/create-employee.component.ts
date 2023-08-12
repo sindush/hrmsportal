@@ -181,7 +181,7 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   updateEmployeeDetails(employeeDetails: employeeDetails) {
-    this.store.dispatch(updateEmployee({employeDetails:employeeDetails}))
+    this.store.dispatch(updateEmployee({employeDetails: employeeDetails}))
     // this.apiService
     //   .updateEmployeeDetails(employeeDetails)
     //   .subscribe((response) => {

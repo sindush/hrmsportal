@@ -1,29 +1,36 @@
-import { filter } from 'rxjs';
-import { employeeDetails } from './../../shared/interface/employeeDetails';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { EmployeeState } from './employee.state';
+import { EmployeeState, employeeAdaptor } from './employee.state';
 
 export const EMPLOYEE_STATE_NAME = 'employeDetails';
 
 const getEmployeesState =
   createFeatureSelector<EmployeeState>(EMPLOYEE_STATE_NAME);
+export const employeeSelector = employeeAdaptor.getSelectors();
 
 export const getEmployeeDetailsList = createSelector(
   getEmployeesState,
-  (state) => {
-    return state?.employeeDetails;
-  }
+  employeeSelector.selectAll
+);
+
+export const getEmployeeEntities = createSelector(
+  getEmployeesState,
+  employeeSelector.selectEntities
 );
 
 export const getEmployeeDetailsById = createSelector(
-  getEmployeesState,
+  getEmployeeEntities,
   (state: any, props: any) => {
-    return state.employeeDetails.find(
-      (emp: employeeDetails) => emp.id === props.id
-    );
+    for (const key in state) {
+      if (key === props.id) {
+      return state[key]
+        
+      }
+    }
+    // return state.find(
+    //   (emp: employeeDetails) => emp.id === props.id
+    // );
   }
 );
-
 
 // export const getPostById = createSelector(
 //   getPostEntities,

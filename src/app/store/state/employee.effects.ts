@@ -17,6 +17,7 @@ import { map, mergeMap, retry } from 'rxjs';
 import { ApiService } from 'src/app/shared/services/apiendpoint/api.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { CreateEmployeeComponent } from 'src/app/create-employee/create-employee.component';
+import { Update } from '@ngrx/entity';
 
 @Injectable()
 export class EmployeesEffects {
@@ -75,7 +76,7 @@ export class EmployeesEffects {
           .pipe(
             map((response: any) => {
               return deleteEmployeeSuccess({
-                employeDetails: action.employeDetails,
+                id:action.employeDetails.id,
               });
             })
           );
@@ -91,8 +92,14 @@ export class EmployeesEffects {
           .updateEmployeeDetails(action.employeDetails)
           .pipe(
             map((response: any) => {
+              const updatedEmployeDetails : Update<employeeDetails> = {
+                id:action.employeDetails.id,
+                changes:{
+                  ...action.employeDetails
+                }
+              }
               return updateEmployeeSuccess({
-                employeDetails: action.employeDetails,
+                employeDetails: updatedEmployeDetails,
               });
             })
           );
