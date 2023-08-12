@@ -1,3 +1,4 @@
+import { employeeDetails } from './../../interface/employeeDetails';
 import {
   AfterViewInit,
   Component,
@@ -12,7 +13,6 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ExcelService } from '../../services/excell/excel.service';
 import * as XLSX from 'xlsx';
-import { employeeDetails } from '../../interface/employeeDetails';
 import { TableColumn } from '../../interface/column';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { CreateEmployeeComponent } from 'src/app/create-employee/create-employee.component';
@@ -22,6 +22,13 @@ import { MatSort } from '@angular/material/sort';
 import { SnackbarService } from '../../services/snackbar/snackbar.service';
 import { Router } from '@angular/router';
 import { SpinnerService } from '../../services/spinner/spinner.service';
+import { EmployeeState } from 'src/app/store/state/employee.state';
+import { Store } from '@ngrx/store';
+import {
+  deleteEmployee,
+  setEmployeeDetails,
+} from 'src/app/store/state/employee.actions';
+// import { employeesListSelector } from 'src/app/store/state/employee.selector';
 // import {MAT_DIALOG_DATA} from '@angular/material';
 
 export interface PeriodicElement {
@@ -53,7 +60,7 @@ export class SharedtableComponent implements OnInit, OnChanges, AfterViewInit {
   resultsLength: number;
 
   ngAfterViewInit() {
-    this.resultsLength = this.tableSourceData.length;
+    this.resultsLength = this.tableSourceData?.length;
     // this.dataSource.paginator = this.paginator;
   }
   constructor(
@@ -62,17 +69,20 @@ export class SharedtableComponent implements OnInit, OnChanges, AfterViewInit {
     private apiService: ApiService,
     private utilityService: UtilityService,
     private snackBarService: SnackbarService,
-    private router:Router,
-    public spinnerService:SpinnerService
+    private router: Router,
+    public spinnerService: SpinnerService,
+    private store: Store<EmployeeState>
   ) {}
 
   ngOnInit(): void {
+    debugger;
+
     this.dataSource.paginator = this.paginator;
-    if(this.tableSourceData){
-      this.resultsLength = this.tableSourceData.length;
+    if (this.tableSourceData) {
+      this.resultsLength = this.tableSourceData?.length;
       this.dataSource = new MatTableDataSource(this.tableSourceData);
     }
-    
+
     this.utilityService.getDialogStatus.subscribe((val) => {
       if (val) {
         this.closeDialog();
@@ -137,14 +147,16 @@ export class SharedtableComponent implements OnInit, OnChanges, AfterViewInit {
   }
   callGetCustomerDetails() {
     this.spinnerService.setLoading(true);
-    this.apiService.getEmployeeData().subscribe((details) => {
-      
-      this.spinnerService.setLoading(false);
-      this.dataSource = new MatTableDataSource(details);
-      this.sortGrid(details, 'id');
-      this.utilityService.setEmployeeData.next(details);
-      this.closeDialog();
-    });
+    this.apiService
+      .getEmployeeData()
+      .subscribe((details: employeeDetails[]) => {
+        this.spinnerService.setLoading(false);
+        this.dataSource = new MatTableDataSource(details);
+        this.sortGrid(details, 'id');
+        this.store.dispatch(setEmployeeDetails({ employeDetails: details }));
+        // this.utilityService.setEmployeeData.next(details);
+        this.closeDialog();
+      });
   }
 
   openDialog(employee: employeeDetails) {
@@ -172,12 +184,13 @@ export class SharedtableComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   deleteEmployee(employee: employeeDetails) {
-    debugger
+    debugger;
     this.apiService.deleteEmployeeById(employee.id).subscribe((value) => {
       if (value.status === 200) {
         this.apiService.getEmployeeData().subscribe(
           (details) => {
-            this.utilityService.setEmployeeData.next(details);
+            // this.utilityService.setEmployeeData.next(details);
+            this.store.dispatch(deleteEmployee({ employeDetails: employee }));
           },
           (err) => {
             this.snackBarService.error(err.statusText);
@@ -187,8 +200,8 @@ export class SharedtableComponent implements OnInit, OnChanges, AfterViewInit {
     });
   }
 
-  viewEmployee(employee: employeeDetails){
-   this.router.navigate(['view'], { queryParams: { id: employee.id } })
+  viewEmployee(employee: employeeDetails) {
+    this.router.navigate(['view'], { queryParams: { id: employee.id } });
   }
 
   sortGrid(item: any, property: any) {
@@ -201,6 +214,4 @@ export class SharedtableComponent implements OnInit, OnChanges, AfterViewInit {
       }
     };
   }
-
- 
 }

@@ -18,8 +18,8 @@ export class UtilityService {
   });
   getEmployeedsLeavesInfo = this.setEmployeeLeaves.asObservable();
 
-  public setEmployeeData = new BehaviorSubject<any>({});
-  getEmployeesData = this.setEmployeeData.asObservable();
+  // public setEmployeeData = new BehaviorSubject<any>({});
+  // getEmployeesData = this.setEmployeeData.asObservable();
 
   public closeDialog = new BehaviorSubject<boolean>(false);
   getDialogStatus = this.closeDialog.asObservable();

@@ -8,6 +8,9 @@ import { leaves } from '../shared/interface/leaves';
 import { TableColumn } from '../shared/interface/column';
 import { Router } from '@angular/router';
 import { SpinnerService } from '../shared/services/spinner/spinner.service';
+import { setEmployeeDetails } from '../store/state/employee.actions';
+import { Store } from '@ngrx/store';
+import { EmployeeState } from '../store/state/employee.state';
 
 @Component({
   selector: 'app-container',
@@ -26,28 +29,29 @@ export class ContainerComponent implements OnInit {
     private apiService: ApiService,
     private utilityService: UtilityService,
     private router: Router,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private store: Store<EmployeeState>
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
   }
 
   ngOnInit(): void {
-    this.getEmployeeDetails();
-    this.getEmployeeSList();
+    // this.getEmployeeDetails();
+    this.getEmployeesList();
 
-    this.employeeProfile$.subscribe((profileData: employeeDetails) =>
-      this.utilityService.setEmployeeProfile.next(profileData)
-    );
-    this.employeeLeaves$.subscribe((leaves: leaves) =>
-      this.utilityService.setEmployeeLeaves.next(leaves)
-    );
+    // this.employeeProfile$.subscribe((profileData: employeeDetails) =>
+    //   this.utilityService.setEmployeeProfile.next(profileData)
+    // );
+    // this.employeeLeaves$.subscribe((leaves: leaves) =>
+    //   this.utilityService.setEmployeeLeaves.next(leaves)
+    // );
   }
 
   getEmployeeDetails() {
     this.employeeProfile$ = this.apiService.getEmployeeProfile();
     this.employeeLeaves$ = this.apiService.getEmployeeLeaves();
   }
-  getEmployeeSList() {
+  getEmployeesList() {
     this.spinnerService.setLoading(true);
     this.apiService
       .getEmployeeData()
@@ -61,11 +65,10 @@ export class ContainerComponent implements OnInit {
         })
       )
       .subscribe((data: employeeDetails[]) => {
-        debugger;
-        console.log('data',data)
         this.employeedData = data;
         this.spinnerService.setLoading(false);
-        this.utilityService.setEmployeeData.next(data);
+        this.store.dispatch(setEmployeeDetails({ employeDetails: data }));
+        // this.utilityService.setEmployeeData.next(data);
         this.columns = Object.keys(this.employeedData[0]).map((val) => {
           return {
             columnDef: val,

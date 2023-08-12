@@ -3,6 +3,9 @@ import { Observable, map, of } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../shared/services/apiendpoint/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { EmployeeState } from '../store/state/employee.state';
+import { getEmployeeDetailsById } from '../store/state/employee.selector';
 
 @Component({
   selector: 'app-view-employee',
@@ -15,12 +18,12 @@ export class ViewEmployeeComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private activateRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private store: Store<EmployeeState>
   ) {}
 
   ngOnInit(): void {
     this.activateRoute.queryParams.subscribe((params) => {
-      console.log(params.id);
       if (params.id) {
         this.getEmployeeDetails(params.id);
       }
@@ -28,23 +31,27 @@ export class ViewEmployeeComponent implements OnInit {
   }
 
   getEmployeeDetails(id: string) {
-    this.apiService
-      .getEmployeeDetailsById(id)
-      .pipe(
-        map((response) => {
-          if (response.status === 200) {
-            return response.body;
-          }
-          return null;
-        })
-      )
-      .subscribe((employee) => {
-        // console.log(employee);
-        this.userDetails = employee
-      });
+    this.store.select(getEmployeeDetailsById, { id }).subscribe((employee) => {
+      this.userDetails = employee;
+    });
+
+    // this.apiService
+    //   .getEmployeeDetailsById(id)
+    //   .pipe(
+    //     map((response) => {
+    //       if (response.status === 200) {
+    //         return response.body;
+    //       }
+    //       return null;
+    //     })
+    //   )
+    //   .subscribe((employee) => {
+    //     // console.log(employee);
+    //     this.userDetails = employee
+    //   });
   }
 
-  navigateBack(){
-    this.router.navigate(['/'])
+  navigateBack() {
+    this.router.navigate(['/']);
   }
 }

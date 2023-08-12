@@ -7,6 +7,10 @@ import { UtilityService } from '../shared/services/utility/utility.service';
 import { CreateEmployeeComponent } from '../create-employee/create-employee.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { EmployeeState } from '../store/state/employee.state';
+import { Store } from '@ngrx/store';
+import { getEmployeeDetailsList } from '../store/state/employee.selector';
+// import { employeesListSelector } from '../store/state/employee.selector';
 
 @Component({
   selector: 'app-statistics',
@@ -19,16 +23,15 @@ export class StatisticsComponent implements OnInit {
   columns: Array<TableColumn> = [];
 
   constructor(
-    private apiService: ApiService,
-    private utilityService: UtilityService,
     public dialog: MatDialog,
-    private router:Router
+    private store: Store<EmployeeState>
   ) {}
 
   ngOnInit(): void {
-    this.utilityService.getEmployeesData.subscribe((employeeData) => {
-      this.employeedData = employeeData;
-    });
+    this.store.select(getEmployeeDetailsList)
+    .subscribe(data =>{
+      this.employeedData = data;
+    })
   }
 
   createEmployee() {
@@ -41,7 +44,6 @@ export class StatisticsComponent implements OnInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-    });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 }

@@ -20,12 +20,11 @@ export class LeavesComponent implements OnInit {
       (leaveData: leaves) => (this.leavesData = leaveData)
     );
 
-    this.utilityService.getEmployeesData.subscribe((employeeList) => {
-      
-      if (employeeList && employeeList.length) {
-        this.workFromHome = employeeList?.filter((val: any) => val.workingfrom === 'home');
-        this.workFromOffice = employeeList?.filter((val: any) => val.workingfrom === 'office');
-      }
-    });
+    // this.utilityService.getEmployeesData.subscribe((employeeList) => {      
+    //   if (employeeList && employeeList.length) {
+    //     this.workFromHome = employeeList?.filter((val: any) => val.workingfrom === 'home');
+    //     this.workFromOffice = employeeList?.filter((val: any) => val.workingfrom === 'office');
+    //   }
+    // });
   }
 }

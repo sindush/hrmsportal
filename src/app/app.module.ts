@@ -20,6 +20,9 @@ import { SnackbarService } from './shared/services/snackbar/snackbar.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { StoreModule } from '@ngrx/store';
 import { ViewEmployeeComponent } from './view-employee/view-employee.component';
+import {  getEmployeeDetailsReducer } from './store/state/employee.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +42,8 @@ import { ViewEmployeeComponent } from './view-employee/view-employee.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({employeDetails:getEmployeeDetailsReducer}),
+    StoreDevtoolsModule.instrument({ logOnly: environment.production }),
   ],
   providers: [
     ApiService,
