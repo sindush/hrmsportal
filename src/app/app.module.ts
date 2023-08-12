@@ -20,9 +20,13 @@ import { SnackbarService } from './shared/services/snackbar/snackbar.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { StoreModule } from '@ngrx/store';
 import { ViewEmployeeComponent } from './view-employee/view-employee.component';
-import {  getEmployeeDetailsReducer } from './store/state/employee.reducer';
+import { getEmployeeDetailsReducer } from './store/state/employee.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { EmployeesEffects } from './store/state/employee.effects';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { CustomSerializer } from './custom-route-serializer';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,8 +46,12 @@ import { environment } from '../environments/environment';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({employeDetails:getEmployeeDetailsReducer}),
+    StoreModule.forRoot({ employeDetails: getEmployeeDetailsReducer }),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
+    EffectsModule.forRoot([EmployeesEffects]),
+    StoreRouterConnectingModule.forRoot({
+      serializer: CustomSerializer,
+    }),
   ],
   providers: [
     ApiService,
@@ -55,7 +63,7 @@ import { environment } from '../environments/environment';
       multi: true,
     },
     { provide: MAT_DIALOG_DATA, useValue: {} },
-    { provide: MatDialogRef, useValue: {} } 
+    { provide: MatDialogRef, useValue: {} },
   ],
   bootstrap: [AppComponent],
   exports: [],

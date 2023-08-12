@@ -8,9 +8,9 @@ import { leaves } from '../shared/interface/leaves';
 import { TableColumn } from '../shared/interface/column';
 import { Router } from '@angular/router';
 import { SpinnerService } from '../shared/services/spinner/spinner.service';
-import { setEmployeeDetails } from '../store/state/employee.actions';
 import { Store } from '@ngrx/store';
 import { EmployeeState } from '../store/state/employee.state';
+import { loadEmployeeDetails } from '../store/state/employee.actions';
 
 @Component({
   selector: 'app-container',
@@ -36,8 +36,7 @@ export class ContainerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.getEmployeeDetails();
-    this.getEmployeesList();
+    this.store.dispatch(loadEmployeeDetails());    
 
     // this.employeeProfile$.subscribe((profileData: employeeDetails) =>
     //   this.utilityService.setEmployeeProfile.next(profileData)
@@ -53,6 +52,7 @@ export class ContainerComponent implements OnInit {
   }
   getEmployeesList() {
     this.spinnerService.setLoading(true);
+    
     this.apiService
       .getEmployeeData()
       .pipe(
@@ -67,7 +67,7 @@ export class ContainerComponent implements OnInit {
       .subscribe((data: employeeDetails[]) => {
         this.employeedData = data;
         this.spinnerService.setLoading(false);
-        this.store.dispatch(setEmployeeDetails({ employeDetails: data }));
+        
         // this.utilityService.setEmployeeData.next(data);
         this.columns = Object.keys(this.employeedData[0]).map((val) => {
           return {

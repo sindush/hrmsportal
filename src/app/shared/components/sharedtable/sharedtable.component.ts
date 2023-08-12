@@ -24,10 +24,7 @@ import { Router } from '@angular/router';
 import { SpinnerService } from '../../services/spinner/spinner.service';
 import { EmployeeState } from 'src/app/store/state/employee.state';
 import { Store } from '@ngrx/store';
-import {
-  deleteEmployee,
-  setEmployeeDetails,
-} from 'src/app/store/state/employee.actions';
+import { deleteEmployee } from 'src/app/store/state/employee.actions';
 // import { employeesListSelector } from 'src/app/store/state/employee.selector';
 // import {MAT_DIALOG_DATA} from '@angular/material';
 
@@ -75,8 +72,6 @@ export class SharedtableComponent implements OnInit, OnChanges, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    debugger;
-
     this.dataSource.paginator = this.paginator;
     if (this.tableSourceData) {
       this.resultsLength = this.tableSourceData?.length;
@@ -153,7 +148,7 @@ export class SharedtableComponent implements OnInit, OnChanges, AfterViewInit {
         this.spinnerService.setLoading(false);
         this.dataSource = new MatTableDataSource(details);
         this.sortGrid(details, 'id');
-        this.store.dispatch(setEmployeeDetails({ employeDetails: details }));
+        // this.store.dispatch(setEmployeeDetails({ employeDetails: details }));
         // this.utilityService.setEmployeeData.next(details);
         this.closeDialog();
       });
@@ -185,19 +180,20 @@ export class SharedtableComponent implements OnInit, OnChanges, AfterViewInit {
 
   deleteEmployee(employee: employeeDetails) {
     debugger;
-    this.apiService.deleteEmployeeById(employee.id).subscribe((value) => {
-      if (value.status === 200) {
-        this.apiService.getEmployeeData().subscribe(
-          (details) => {
-            // this.utilityService.setEmployeeData.next(details);
-            this.store.dispatch(deleteEmployee({ employeDetails: employee }));
-          },
-          (err) => {
-            this.snackBarService.error(err.statusText);
-          }
-        );
-      }
-    });
+    this.store.dispatch(deleteEmployee({employeDetails: employee }))
+    // this.apiService.deleteEmployeeById(employee.id).subscribe((value) => {
+    //   if (value.status === 200) {
+    //     this.apiService.getEmployeeData().subscribe(
+    //       (details) => {
+    //         // this.utilityService.setEmployeeData.next(details);
+    //         this.store.dispatch(deleteEmployee({ employeDetails: employee }));
+    //       },
+    //       (err) => {
+    //         this.snackBarService.error(err.statusText);
+    //       }
+    //     );
+    //   }
+    // });
   }
 
   viewEmployee(employee: employeeDetails) {

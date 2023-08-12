@@ -5,16 +5,17 @@ import { employeeDetailsInitialState } from './employee.state';
 import {
   addEmployee,
   deleteEmployee,
-  setEmployeeDetails,
+  loadEmployeeDetails,
+  loadEmployeeDetailsSuccess,
   updateEmployee,
 } from './employee.actions';
 
 const _getEmployeeDetailsReducer = createReducer(
   employeeDetailsInitialState,
 
-  on(setEmployeeDetails, (state, action) => {
+  on(loadEmployeeDetailsSuccess, (state, action) => {
     return {
-      ...state,
+      state,
       employeeDetails: action.employeDetails,
     };
   }),
@@ -46,13 +47,12 @@ const _getEmployeeDetailsReducer = createReducer(
           : empDetails;
       }
     );
-    
+
     return {
       ...state,
       employeeDetails: updatedEmployeeDetails,
     };
-  }),
-
+  })
 );
 
 export function getEmployeeDetailsReducer(state: any, action: any) {

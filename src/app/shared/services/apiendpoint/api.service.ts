@@ -10,11 +10,12 @@ import { leaves } from '../../interface/leaves';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-  createEmployeeDetails(employeeDetails: employeeDetails) {
-    return this.http.post(
+  createEmployeeDetails(
+    employeDetails: employeeDetails
+  ): Observable<{ employeDetails: employeeDetails }> {
+    return this.http.post<{ employeDetails: employeeDetails }>(
       `https://hrmsportal-67715-default-rtdb.firebaseio.com/posts.json`,
-      employeeDetails,
-      { observe: 'response' }
+      employeDetails
     );
   }
 
@@ -43,8 +44,7 @@ export class ApiService {
   updateEmployeeDetails(employeeDetails: employeeDetails) {
     return this.http.put(
       `https://hrmsportal-67715-default-rtdb.firebaseio.com/posts/${employeeDetails.id}.json`,
-      employeeDetails,
-      { observe: 'response' }
+      employeeDetails
     );
   }
 

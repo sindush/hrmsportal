@@ -23,3 +23,13 @@ export const getEmployeeDetailsById = createSelector(
     );
   }
 );
+
+
+// export const getPostById = createSelector(
+//   getPostEntities,
+//   getCurrentRoute,
+//   (posts, route: RouterStateUrl) => {
+//     debugger
+//     return posts ? posts[route.params['id']] : null;
+//   }
+// );

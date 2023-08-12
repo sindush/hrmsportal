@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { EmployeeState } from '../store/state/employee.state';
 import { Store } from '@ngrx/store';
 import { getEmployeeDetailsList } from '../store/state/employee.selector';
+import { loadEmployeeDetails } from '../store/state/employee.actions';
 // import { employeesListSelector } from '../store/state/employee.selector';
 
 @Component({
@@ -28,10 +29,10 @@ export class StatisticsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.store.select(getEmployeeDetailsList)
-    .subscribe(data =>{
+
+    this.store.select(getEmployeeDetailsList).subscribe(data =>{
       this.employeedData = data;
-    })
+    });
   }
 
   createEmployee() {
