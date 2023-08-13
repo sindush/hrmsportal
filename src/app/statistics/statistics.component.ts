@@ -11,6 +11,7 @@ import { EmployeeState } from '../store/state/employee.state';
 import { Store } from '@ngrx/store';
 import { getEmployeeDetailsList } from '../store/state/employee.selector';
 import { loadEmployeeDetails } from '../store/state/employee.actions';
+import { EmployeeService } from '../employee.service';
 // import { employeesListSelector } from '../store/state/employee.selector';
 
 @Component({
@@ -25,14 +26,17 @@ export class StatisticsComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private store: Store<EmployeeState>
+    private store: Store<EmployeeState>,
+    private employeeService: EmployeeService
   ) {}
 
   ngOnInit(): void {
-
-    this.store.select(getEmployeeDetailsList).subscribe(data =>{
-      this.employeedData = data;
+    this.employeeService.entities$.subscribe((values) => {
+      this.employeedData = values;
     });
+    // this.store.select(getEmployeeDetailsList).subscribe(data =>{
+    //   this.employeedData = data;
+    // });
   }
 
   createEmployee() {

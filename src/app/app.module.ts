@@ -27,6 +27,15 @@ import { EffectsModule } from '@ngrx/effects';
 import { EmployeesEffects } from './store/state/employee.effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { CustomSerializer } from './custom-route-serializer';
+import {
+  EntityDataModule,
+  EntityDataService,
+  EntityDefinitionService,
+} from '@ngrx/data';
+import { entityConfig } from './entity-metadata';
+import { EmployeeService } from './employee.service';
+import { EmployeeDataService } from './employee-data.service';
+import { entityMetadata } from './store/state/data-store/entity-metadata';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,10 +61,13 @@ import { CustomSerializer } from './custom-route-serializer';
     StoreRouterConnectingModule.forRoot({
       serializer: CustomSerializer,
     }),
+    EntityDataModule.forRoot(entityConfig),
   ],
   providers: [
     ApiService,
+    EmployeeService,
     UtilityService,
+    EmployeeDataService,
     SnackbarService,
     {
       provide: HTTP_INTERCEPTORS,
@@ -68,4 +80,14 @@ import { CustomSerializer } from './custom-route-serializer';
   bootstrap: [AppComponent],
   exports: [],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(
+    eds: EntityDefinitionService,
+    entityDataService: EntityDataService,
+    EmployeeDataService: EmployeeDataService
+  ) {
+    eds.registerMetadataMap(entityMetadata);
+
+    entityDataService.registerService('EmployeeDetails', EmployeeDataService);
+  }
+}

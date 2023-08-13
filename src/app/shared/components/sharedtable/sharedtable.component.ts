@@ -25,6 +25,7 @@ import { SpinnerService } from '../../services/spinner/spinner.service';
 import { EmployeeState } from 'src/app/store/state/employee.state';
 import { Store } from '@ngrx/store';
 import { deleteEmployee } from 'src/app/store/state/employee.actions';
+import { EmployeeService } from 'src/app/employee.service';
 // import { employeesListSelector } from 'src/app/store/state/employee.selector';
 // import {MAT_DIALOG_DATA} from '@angular/material';
 
@@ -68,11 +69,13 @@ export class SharedtableComponent implements OnInit, OnChanges, AfterViewInit {
     private snackBarService: SnackbarService,
     private router: Router,
     public spinnerService: SpinnerService,
-    private store: Store<EmployeeState>
+    private store: Store<EmployeeState>,
+    private employeeService: EmployeeService
   ) {}
 
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
+
     if (this.tableSourceData) {
       this.resultsLength = this.tableSourceData?.length;
       this.dataSource = new MatTableDataSource(this.tableSourceData);
@@ -126,18 +129,26 @@ export class SharedtableComponent implements OnInit, OnChanges, AfterViewInit {
   createEmployee(employeeDetails: employeeDetails[]) {
     this.spinnerService.setLoading(true);
     employeeDetails.forEach((eachEmployee, i) => {
-      this.apiService.createEmployeeDetails(eachEmployee).subscribe(
-        (response: any) => {
+      this.employeeService.add(eachEmployee).subscribe((data) => {
+        debugger;
+        if (i === employeeDetails.length - 1) {
           this.spinnerService.setLoading(false);
-          if (response.status === 201 && i === employeeDetails.length - 1) {
-            this.callGetCustomerDetails();
-          }
-        },
-        (err) => {
-          this.spinnerService.setLoading(false);
-          this.snackBarService.error(err.statusText);
+          // this.callGetCustomerDetails();
+          this.closeDialog();
         }
-      );
+      });
+      // this.apiService.createEmployeeDetails(eachEmployee).subscribe(
+      //   (response: any) => {
+      //     this.spinnerService.setLoading(false);
+      //     if (response.status === 201 && i === employeeDetails.length - 1) {
+      //       this.callGetCustomerDetails();
+      //     }
+      //   },
+      //   (err) => {
+      //     this.spinnerService.setLoading(false);
+      //     this.snackBarService.error(err.statusText);
+      //   }
+      // );
     });
   }
   callGetCustomerDetails() {
@@ -180,7 +191,10 @@ export class SharedtableComponent implements OnInit, OnChanges, AfterViewInit {
 
   deleteEmployee(employee: employeeDetails) {
     debugger;
-    this.store.dispatch(deleteEmployee({employeDetails: employee }))
+    this.employeeService.delete(employee).subscribe((val) => {
+      console.log(val);
+    });
+    // this.store.dispatch(deleteEmployee({employeDetails: employee }))
     // this.apiService.deleteEmployeeById(employee.id).subscribe((value) => {
     //   if (value.status === 200) {
     //     this.apiService.getEmployeeData().subscribe(

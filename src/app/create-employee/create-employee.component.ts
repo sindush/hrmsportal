@@ -18,6 +18,7 @@ import { EmployeeState } from '../store/state/employee.state';
 import { Store } from '@ngrx/store';
 import { addEmployee, updateEmployee } from '../store/state/employee.actions';
 import { getEmployeeDetailsList } from '../store/state/employee.selector';
+import { EmployeeService } from '../employee.service';
 // import { PhoneValidator } from '../shared/validators/phone.validator';
 // import { Country, UsernameValidator, ParentErrorStateMatcher, PasswordValidator, PhoneValidator } from '../validators';
 @Component({
@@ -72,7 +73,8 @@ export class CreateEmployeeComponent implements OnInit {
     // private datePipe: DatePipe,
     private apiService: ApiService,
     private utilityService: UtilityService,
-    private store: Store<EmployeeState>
+    private store: Store<EmployeeState>,
+    private employeeService:EmployeeService
   ) {}
 
   ngOnInit(): void {
@@ -181,7 +183,12 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   updateEmployeeDetails(employeeDetails: employeeDetails) {
-    this.store.dispatch(updateEmployee({employeDetails: employeeDetails}))
+    this.employeeService.update(employeeDetails).subscribe(data =>{
+      this.closeDialog();
+    })
+
+    // this.store.dispatch(updateEmployee({employeDetails: employeeDetails}))
+    
     // this.apiService
     //   .updateEmployeeDetails(employeeDetails)
     //   .subscribe((response) => {
@@ -195,7 +202,11 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   createEmployee(emplDetails: employeeDetails) {
-    this.store.dispatch(addEmployee({ employeDetails: emplDetails }));
+    this.employeeService.add(emplDetails).subscribe(data =>{
+      this.closeDialog();
+    })
+
+    // this.store.dispatch(addEmployee({ employeDetails: emplDetails }));
 
     // this.apiService
     // .createEmployeeDetails(employeeDetails)

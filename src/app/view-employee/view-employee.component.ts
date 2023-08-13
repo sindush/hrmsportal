@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { EmployeeState } from '../store/state/employee.state';
 import { getEmployeeDetailsById } from '../store/state/employee.selector';
+import { EmployeeService } from '../employee.service';
 
 @Component({
   selector: 'app-view-employee',
@@ -13,13 +14,14 @@ import { getEmployeeDetailsById } from '../store/state/employee.selector';
   styleUrls: ['./view-employee.component.css'],
 })
 export class ViewEmployeeComponent implements OnInit {
-  userDetails: employeeDetails | null;
+  userDetails: employeeDetails | undefined;
   // userDetails$ = Observable<employeeDetails>
   constructor(
     private apiService: ApiService,
     private activateRoute: ActivatedRoute,
     private router: Router,
-    private store: Store<EmployeeState>
+    private store: Store<EmployeeState>,
+    private employeeService: EmployeeService
   ) {}
 
   ngOnInit(): void {
@@ -31,9 +33,12 @@ export class ViewEmployeeComponent implements OnInit {
   }
 
   getEmployeeDetails(id: string) {
-    this.store.select(getEmployeeDetailsById, { id }).subscribe((employee) => {
-      this.userDetails = employee;
+    this.employeeService.entities$.subscribe((employees) => {
+      this.userDetails = employees.find((employee) => employee.id == id);
     });
+    // this.store.select(getEmployeeDetailsById, { id }).subscribe((employee) => {
+    //   this.userDetails = employee;
+    // });
 
     // this.apiService
     //   .getEmployeeDetailsById(id)

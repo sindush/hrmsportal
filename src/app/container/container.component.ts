@@ -11,6 +11,7 @@ import { SpinnerService } from '../shared/services/spinner/spinner.service';
 import { Store } from '@ngrx/store';
 import { EmployeeState } from '../store/state/employee.state';
 import { loadEmployeeDetails } from '../store/state/employee.actions';
+import { EmployeeService } from '../employee.service';
 
 @Component({
   selector: 'app-container',
@@ -30,12 +31,15 @@ export class ContainerComponent implements OnInit {
     private utilityService: UtilityService,
     private router: Router,
     private spinnerService: SpinnerService,
-    private store: Store<EmployeeState>
+    private store: Store<EmployeeState>,
+    private employeeService:EmployeeService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
   }
 
   ngOnInit(): void {
+    this.employeeService.getAll();
+
     this.store.dispatch(loadEmployeeDetails());    
 
     // this.employeeProfile$.subscribe((profileData: employeeDetails) =>
