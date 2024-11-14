@@ -13,6 +13,7 @@ export class LeavesComponent implements OnInit {
   leavesData: leaves;
   workFromHome: string;
   workFromOffice: string;
+  testVariable: string;
   constructor(private utilityService: UtilityService) {}
 
   ngOnInit(): void {
