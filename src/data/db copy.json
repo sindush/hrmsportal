@@ -1,0 +1,157 @@
+{
+  "employeeList": [
+    {
+      "first_name": "darshan",
+      "last_name": "velagaleti",
+      "gender": "male",
+      "dob": "1992-06-24T18:30:00.000Z",
+      "address": "14 Taylor St",
+      "city": "Vijayawada",
+      "county": "India",
+      "postal": "520004",
+      "phone1": "1234567890",
+      "phone2": "01944-369967",
+      "email": "123123@hotmail.com",
+      "web": "asdasdsad",
+      "workingfrom": "home",
+      "id": 32123
+    },
+    {
+      "first_name": "Anusha",
+      "last_name": "velagaleti",
+      "gender": "female",
+      "dob": "1992-06-24T18:30:00.000Z",
+      "address": "18 Taylor St",
+      "city": "Vijayawada",
+      "county": "India",
+      "postal": "520004",
+      "phone1": "1234567890",
+      "phone2": "01944-369971",
+      "email": "123123@hotmail.com",
+      "web": "asdasdsad",
+      "workingfrom": "home",
+      "id": 25612
+    },
+    {
+      "first_name": "Koteswara rao",
+      "last_name": "velagaleti",
+      "gender": "male",
+      "dob": "1992-06-24T18:30:00.000Z",
+      "address": "17 Taylor St",
+      "city": "Vijayawada",
+      "county": "India",
+      "postal": "520004",
+      "phone1": "1234567890",
+      "phone2": "01944-369970",
+      "email": "123123@hotmail.com",
+      "web": "asdasdsad",
+      "workingfrom": "home",
+      "id": 52452
+    },
+    {
+      "first_name": "Vijaya",
+      "last_name": "kumari",
+      "gender": "female",
+      "dob": "1992-06-24T18:30:00.000Z",
+      "address": "16 Taylor St",
+      "city": "Vijayawada",
+      "county": "India",
+      "postal": "520004",
+      "phone1": "1234567890",
+      "phone2": "01944-369969",
+      "email": "123123@hotmail.com",
+      "web": "asdasdsad",
+      "workingfrom": "home",
+      "id": 12451
+    },
+    {
+      "first_name": "manju",
+      "last_name": "velagaleti",
+      "gender": "female",
+      "dob": "1992-06-24T18:30:00.000Z",
+      "address": "15 Taylor St",
+      "city": "Vijayawada",
+      "county": "India",
+      "postal": "520004",
+      "phone1": "1234567890",
+      "phone2": "01944-369968",
+      "email": "123123@hotmail.com",
+      "web": "asdasdsad",
+      "workingfrom": "home",
+      "id": 1235
+    }
+  ],
+  "profile": {
+    "id": "501",
+    "first_name": "Sindush",
+    "last_name": "Velagaleti",
+    "dob": "1/1/91",
+    "gender": "Male",
+    "address": "6 Norwood Grove",
+    "city": "Tanworth-in-Arden",
+    "county": "Warwickshire",
+    "postal": "B94 5RZ",
+    "phone1": "01451-785624",
+    "phone2": "01202-738406",
+    "email": "mi@hotmail.com",
+    "workingfrom": "home",
+    "web": "http://www.nelsonwrighthaworthgolfcrs.co.uk"
+  },
+  "leavesData": {
+    "totlaLeavesApplied": 25,
+    "approvedLeaves": 12,
+    "pendingApprovalLeaves": "13",
+    "employeeOnLeave": [
+      {
+        "first_name": "Aleshia",
+        "last_name": "Tomkiewicz",
+        "leaveType": {
+          "code": "s",
+          "decode": "Sick Leave"
+        },
+        "startDate": "12-07-2023",
+        "endDate": "12-07-2023"
+      },
+      {
+        "first_name": "Evan",
+        "last_name": "Zigomalas",
+        "leaveType": {
+          "code": "s",
+          "decode": "Sick Leave"
+        },
+        "startDate": "12-07-2023",
+        "endDate": "12-07-2023"
+      },
+      {
+        "first_name": "France",
+        "last_name": "Andrade",
+        "leaveType": {
+          "code": "v",
+          "decode": "Vacation Leave"
+        },
+        "startDate": "12-07-2023",
+        "endDate": "28-07-2023"
+      },
+      {
+        "first_name": "Ulysses",
+        "last_name": "Mcwalters",
+        "leaveType": {
+          "code": "s",
+          "decode": "Sick Leave"
+        },
+        "startDate": "12-07-2023",
+        "endDate": "12-07-2023"
+      },
+      {
+        "first_name": "Tyisha",
+        "last_name": "Veness",
+        "leaveType": {
+          "code": "s",
+          "decode": "Sick Leave"
+        },
+        "startDate": "12-07-2023",
+        "endDate": "12-07-2023"
+      }
+    ]
+  }
+}
