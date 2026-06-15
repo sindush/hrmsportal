@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { UtilityService } from './shared/services/utility/utility.service';
-import { SpinnerService } from './shared/services/spinner/spinner.service';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +6,6 @@ import { SpinnerService } from './shared/services/spinner/spinner.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor(public spinnerService: SpinnerService) {}
+  constructor() {}
   title = 'hrmsportal';
 }
